@@ -47,5 +47,55 @@ h1 {
 }
 
 .form button:hover {
-    background-color: rgb(98, 220, 236);
+    background-color: rgb(149, 231, 241);
+}
+
+.edit-buttons {
+    /* border: 2px dotted red; */
+    box-sizing: border-box;
+    width: 165px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-buttons button {
+    border: none;
+    background-color: rgb(26, 219, 245);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 700;
+    padding: 5px 20px;
+    transition: .2s;
+}
+
+.edit-buttons button:hover {
+    background-color: rgb(149, 231, 241);
+}
+
+.products-list {
+    /* border: 2px dotted yellow; */
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 100px;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.products {
+    /* border: 2px dotted red; */
+    height: 260px;
+    color: white;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1.2em;
+    font-weight: 700;
+    box-sizing: border-box;
+    margin: 0 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.products img {
+    height: 150px;
 }

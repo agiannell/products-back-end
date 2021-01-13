@@ -3,7 +3,7 @@ module.exports = {
         const {name, description, price, image_url} = req.body,
             db = req.app.get('db');
 
-        db.create_product({name, description, price, image_url})
+        db.create_product([name, description, price, image_url])
         .then(res.sendStatus(200))
         .catch(err => res.status(500).send(err))
     },

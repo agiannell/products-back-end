@@ -13,6 +13,7 @@ massive({
 }) .then(db => {
     app.set('db', db);
     console.log('db connected');
+    app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${SERVER_PORT}`))
 }) .catch(err => console.log(err));
 
 //endpoints
@@ -21,5 +22,3 @@ app.get('/api/products/:id', productsCtrl.getOne);
 app.put('/api/products/:id', productsCtrl.update);
 app.post('/api/products', productsCtrl.create);
 app.delete('/api/products/:id', productsCtrl.delete);
-
-app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${SERVER_PORT}`))

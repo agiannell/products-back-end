@@ -1,6 +1,6 @@
 insert into product
 (name, description, price, image_url)
 values
-(${name}, ${description}, ${price}, ${image_url});
+($1, $2, $3, $4);
 
 select * from product;

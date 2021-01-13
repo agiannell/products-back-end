@@ -8,9 +8,9 @@ class App extends Component {
         super();
         this.state = {
             name: '',
-            desc: '',
+            description: '',
             price: 0,
-            imageURL: '',
+            image_url: '',
             products: []
         }
     }
@@ -27,12 +27,20 @@ class App extends Component {
             .catch(err => console.log(err));
     }
 
+    deleteProduct = (id) => {
+        axios.delete(`/api/products/${id}`)
+            .then(res => {
+                this.setState({products: res.data})
+            })
+            .catch(err => console.log(err));
+    }
+
     handleNameInput = (e) => {
         this.setState({name: e})
     }
 
     handleDescInput = (e) => {
-        this.setState({desc: e})
+        this.setState({description: e})
     }
 
     handlePriceInput = (e) => {
@@ -40,12 +48,12 @@ class App extends Component {
     }
 
     handleImageInput = (e) => {
-        this.setState({imageURL: e})
+        this.setState({image_url: e})
     }
 
-    handleSubmit = (e) => {
-        const {name, desc, price, imageURL} = this.state;
-        axios.post('/api/products', {name, description: desc, price, image_url: imageURL})
+    handleSubmit = () => {
+        const {name, description, price, image_url} = this.state;
+        axios.post('/api/products', {name, description, price, image_url})
             .then(res => {
                 this.setState({products: res.data})
             })
@@ -60,29 +68,34 @@ class App extends Component {
     }
 
     render() {
-        const {handleNameInput, handleDescInput, handlePriceInput, handleImageInput, handleSubmit} = this,
-            {name, products} = this.state;
-        console.log(products);
-        console.log(name);
+        const {handleNameInput, handleDescInput, handlePriceInput, handleImageInput, handleSubmit, deleteProduct} = this,
+            {name, description, price, image_url, products} = this.state;
+        // console.log(products);
         return (
             <section>
                 <header>
                     <h1>Products Back End</h1>
                 </header>
                 <div className='form'>
-                    <input type ='text' onChange ={e => handleNameInput(e.target.value)} placeholder='Name' />
-                    <input type ='text' onChange ={e => handleDescInput(e.target.value)} placeholder='Description' />
-                    <input type ='number' onChange ={e => handleImageInput(e.target.value)} placeholder='Price' />
-                    <input type ='text' onChange ={e => handlePriceInput(e.target.value)} placeholder='Image URL' />
+                    <input value={name} type ='text' onChange ={e => handleNameInput(e.target.value)} placeholder='Name' />
+                    <input value={description} type ='text' onChange ={e => handleDescInput(e.target.value)} placeholder='Description' />
+                    <input value={price} type ='number' onChange ={e => handlePriceInput(e.target.value)} placeholder='Price' />
+                    <input value={image_url} type ='text' onChange ={e => handleImageInput(e.target.value)} placeholder='Image URL' />
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
-                {/* {products.map((e, i) => (
-                    <div key={i}>
-                        <p>{e.name}</p>
-                        <p>{e.price}</p>
-                        <img src={e.imageURL} alt={e.name} />
-                    </div>
-                ))} */}
+                <div className='products-list'>
+                    {products.map((e, i) => (
+                        <div key={e.product_id} className='products'>
+                            <img src={e.image_url} alt={e.name}/>
+                            <p>{e.name}</p>
+                            <p>{e.description}</p>
+                            <div className='edit-buttons'>
+                                <button>Edit</button>
+                                <button onClick={() => deleteProduct(e.product_id)}>Delete</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </section>
 
         )
