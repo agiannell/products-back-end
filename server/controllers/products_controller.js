@@ -4,7 +4,7 @@ module.exports = {
             db = req.app.get('db');
 
         db.create_product([name, description, price, image_url])
-        .then(res.sendStatus(200))
+        .then(products => res.status(200).send(products))
         .catch(err => res.status(500).send(err))
     },
     getOne: (req, res) => {
@@ -36,7 +36,7 @@ module.exports = {
             db = req.app.get('db');
 
         db.delete_product(id)
-        .then(res.sendStatus(200))
+        .then(products => res.status(200).send(products))
         .catch(err => res.status(500).send(err))
     }
 }

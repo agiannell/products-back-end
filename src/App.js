@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import axios from 'axios';
+import ItemsList from './Components/ItemsList';
 import './reset.css';
 import './App.css';
 
@@ -61,9 +62,9 @@ class App extends Component {
 
         this.setState({
             name: '',
-            desc: '',
+            description: '',
             price: 0,
-            imageURL: ''
+            image_url: ''
         })    
     }
 
@@ -83,19 +84,7 @@ class App extends Component {
                     <input value={image_url} type ='text' onChange ={e => handleImageInput(e.target.value)} placeholder='Image URL' />
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
-                <div className='products-list'>
-                    {products.map((e, i) => (
-                        <div key={e.product_id} className='products'>
-                            <img src={e.image_url} alt={e.name}/>
-                            <p>{e.name}</p>
-                            <p>{e.description}</p>
-                            <div className='edit-buttons'>
-                                <button>Edit</button>
-                                <button onClick={() => deleteProduct(e.product_id)}>Delete</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <ItemsList products={products} deleteFn={ deleteProduct } />
             </section>
 
         )
